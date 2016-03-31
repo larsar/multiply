@@ -17,7 +17,7 @@ def pop_values
   x = rand(0..@unused.length-1)
   y = rand(1..@unused[x].length-1)
   #puts "x=#{x} y=#{y}"
-  pair = [x,y,@unused[x][0],@unused[x][y]]
+  pair = [@unused[x][0]+2,@unused[x][y]+1]
   @unused[x].delete_at(y)
   if @unused[x].length == 1
     @unused.delete_at(x)
@@ -26,8 +26,24 @@ def pop_values
 end
 
 build_unused
-puts @unused.length
-puts pop_values
+#puts @unused.length
+
+num = 0
+while @unused.length > 0
+  x, y = pop_values
+  puts "#{x} * #{y} = "
+  #answer = gets.chomp.to_i
+  answer = rand(1..100)
+  @answers[x][y] = answer
+  puts answer
+  num = num+1
+end
+
+puts @answers.to_s
+
+
+
+#puts pop_values
 
 
 # Record answer
