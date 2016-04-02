@@ -1,13 +1,16 @@
 #!/usr/bin/env ruby
 
-@answers = Array.new(10) { Array.new(10) }
-@unused = Array.new(9) { Array.new(10) }
+X=3
+Y=3
+
+@answers = Array.new(X) { Array.new(Y) }
+@unused = Array.new(X) { Array.new(Y+1) }
 
 # Build matrix
 def build_unused
-  9.times do |x|
+  X.times do |x|
     @unused[x][0] = x
-    1.upto(9) do |y|
+    1.upto(Y) do |y|
       @unused[x][y] = y
     end
   end
@@ -16,8 +19,8 @@ end
 def pop_values
   x = rand(0..@unused.length-1)
   y = rand(1..@unused[x].length-1)
-  #puts "x=#{x} y=#{y}"
-  pair = [@unused[x][0]+2,@unused[x][y]+1]
+  puts "x=#{x} y=#{y}"
+  pair = [@unused[x][0],@unused[x][y]]
   @unused[x].delete_at(y)
   if @unused[x].length == 1
     @unused.delete_at(x)
@@ -26,21 +29,32 @@ def pop_values
 end
 
 build_unused
-#puts @unused.length
+puts "UNUSED"
+puts @unused.length
 
 num = 0
 while @unused.length > 0
   x, y = pop_values
   puts "#{x} * #{y} = "
   #answer = gets.chomp.to_i
-  answer = rand(1..100)
+  answer = x * y
   @answers[x][y] = answer
   puts answer
   num = num+1
 end
 
-puts @answers.to_s
+puts num
 
+def check_answers
+  @answers.length.times do |x|
+    @answers[x].length.times do |y|
+      puts "#{x} * #{y} = #{@answers[x][y]}"
+    end
+  end
+end
+
+
+check_answers
 
 
 #puts pop_values
