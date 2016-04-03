@@ -1,0 +1,5 @@
+class Multiplication
+
+
+
+end
