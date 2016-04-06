@@ -1,21 +1,21 @@
-require_relative "multiplication_store"
+require_relative "../multiplication_store"
 require "test/unit"
 
 class TestMultiplicationStore < Test::Unit::TestCase
 
   def setup
-    @x_min = 2
-    @x_max = 4
-    @y_min = 3
-    @y_max = 5
+    @x_min = 1
+    @x_max = 2
+    @y_min = 1
+    @y_max = 2
     @ms = MultiplicationStore.new(@x_min, @x_max, @y_min, @y_max)
   end
 
   def test_boundary_variabes
-    assert_equal(2, @ms.instance_variable_get(:@x_min))
-    assert_equal(5, @ms.instance_variable_get(:@x_max))
-    assert_equal(3, @ms.instance_variable_get(:@y_min))
-    assert_equal(8, @ms.instance_variable_get(:@y_max))
+    assert_equal(@x_min, @ms.instance_variable_get(:@x_min))
+    assert_equal(@x_max, @ms.instance_variable_get(:@x_max))
+    assert_equal(@y_min, @ms.instance_variable_get(:@y_min))
+    assert_equal(@y_max, @ms.instance_variable_get(:@y_max))
   end
 
   def test_boundary_error_handeling
@@ -40,9 +40,9 @@ class TestMultiplicationStore < Test::Unit::TestCase
   end
 
   def test_data_set_length
-    assert_equal(9, @ms.num_unset)
-    @ms.set(@x_min, @y_min, 5)
-    assert_equal(8, @ms.num_unset)
+    assert_equal(3, @ms.num_unset)
+    @ms.store_answer(@x_min, @y_min, 5)
+    assert_equal(2, @ms.num_unset)
   end
 
 
