@@ -7,7 +7,7 @@ class Multiplication
   end
 
   def has_answer?
-    ! @answer.nil?
+    !@answer.nil?
   end
 
   def correct_answer?
@@ -30,6 +30,10 @@ class Multiplication
 
   def y
     @y
+  end
+
+  def hash_key
+    [@x, @y].sort
   end
 
 end
