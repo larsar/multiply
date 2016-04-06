@@ -1,8 +1,8 @@
-class MultiplicationStore
+class QuestionStore
 
 
   def initialize(x_min, x_max, y_min, y_max)
-    @data = {}
+    @questions = {}
     @x_min = x_min
     @x_max = x_max
     @y_min = y_min
@@ -13,32 +13,32 @@ class MultiplicationStore
   def load
     @x_min.upto(@x_max) do |x|
       @y_min.upto(@y_max) do |y|
-        m = Multiplication.new(x,y)
-        @data[m.hash_key] = m unless @data.has_key?(m.hash_key)
+        m = Question.new(x, y)
+        @questions[m.hash_key] = m unless @questions.has_key?(m.hash_key)
       end
     end
   end
 
   def set_answer(x, y, value)
     check_bounds(x,y)
-    m = @data[[x,y]]
+    m = @questions[[x, y]]
     m.answer = value
   end
 
   def get_answer(x, y)
     check_bounds(x,y)
 
-    @data[[x,y]].answer
+    @questions[[x, y]].answer
   end
 
   def num_total
-    @data.keys.length
+    @questions.keys.length
   end
 
   def num_unanswered
     i = 0
-    @data.keys.each do |key|
-      i = i + 1 unless @data[key].has_answer?
+    @questions.keys.each do |key|
+      i = i + 1 unless @questions[key].has_answer?
     end
     i
   end
@@ -49,8 +49,8 @@ class MultiplicationStore
 
   def num_correct
     i = 0
-    @data.keys.each do |key|
-      i = i + 1 if @data[key].has_answer? && @data[key].correct_answer?
+    @questions.keys.each do |key|
+      i = i + 1 if @questions[key].has_answer? && @questions[key].correct_answer?
     end
     i
   end

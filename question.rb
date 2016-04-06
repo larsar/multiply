@@ -1,4 +1,4 @@
-class Multiplication
+class Question
   attr_accessor :answer
 
   def initialize(x, y)

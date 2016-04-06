@@ -1,4 +1,4 @@
-require_relative "../multiplication"
+require_relative "../question"
 require "test/unit"
 
 class TestMultiplication < Test::Unit::TestCase
@@ -6,7 +6,7 @@ class TestMultiplication < Test::Unit::TestCase
   def setup
     @x = 2
     @y = 7
-    @m = Multiplication.new(@x, @y)
+    @m = Question.new(@x, @y)
   end
 
   def test_boundary_variabes
@@ -33,9 +33,9 @@ class TestMultiplication < Test::Unit::TestCase
 
   def test_equal_objects
     assert_false(@m == 'Not correct object')
-    assert_false(@m == Multiplication.new(@x+1, @y+1))
-    assert_true(@m == Multiplication.new(@x, @y))
-    assert_true(@m == Multiplication.new(@y, @x))
+    assert_false(@m == Question.new(@x+1, @y+1))
+    assert_true(@m == Question.new(@x, @y))
+    assert_true(@m == Question.new(@y, @x))
   end
 
 end

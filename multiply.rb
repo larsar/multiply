@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+require 'question_store'
+
 class Multiply
 
   #X=3
