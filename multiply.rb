@@ -1,83 +1,35 @@
 #!/usr/bin/env ruby
 
-require 'question_store'
+require_relative './question_store'
 
-class Multiply
+store = QuestionStore.new(2, 5, 2, 5)
 
-  #X=3
-  #Y=3
+while store.num_unanswered > 0 do
+  #xy = store.next_unanswered_question
+  xy = store.random_unanswered_question
+  x = xy[0]
+  y = xy[1]
 
-  #@answers = Array.new(X) { Array.new(Y) }
-  #@unused = Array.new(X) { Array.new(Y+1) }
-
-  def initialize(x, y)
-    raise unless x.is_a?(Numeric)
-    raise unless y.is_a?(Numeric)
-
-    @x = x
-    @y = y
-  end
-
-# Build matrix
-  def build_unused
-    X.times do |x|
-      @unused[x][0] = x
-      1.upto(Y) do |y|
-        @unused[x][y] = y
-      end
-    end
-  end
-
-  def pop_values
-    x = rand(0..@unused.length-1)
-    y = rand(1..@unused[x].length-1)
-    puts "x=#{x} y=#{y}"
-    pair = [@unused[x][0], @unused[x][y]]
-    @unused[x].delete_at(y)
-    if @unused[x].length == 1
-      @unused.delete_at(x)
-    end
-    pair
-  end
-
-#  build_unused
-#  puts "UNUSED"
-#  puts @unused.length
-
-  # num = 0
-  # while @unused.length > 0
-  #   x, y = pop_values
-  #   puts "#{x} * #{y} = "
-  #   #answer = gets.chomp.to_i
+  puts "#{x} * #{y} = "
+  answer = gets.chomp.to_i
   #   answer = x * y
-  #   @answers[x][y] = answer
-  #   puts answer
-  #   num = num+1
-  # end
-
-#  puts num
-
-  def check_answers
-    @answers.length.times do |x|
-      @answers[x].length.times do |y|
-        puts "#{x} * #{y} = #{@answers[x][y]}"
-      end
-    end
-  end
-
-
-#  check_answers
-
-
-#puts pop_values
-
-
-# Record answer
-
-# Remove from matrix
-
-# Random number
-
+  store.set_answer(x, y, answer)
 end
+
+puts 'Resultat'
+puts '******'
+store.all_keys.each do |key|
+  q = store.get(key)
+  x = key[0]
+  y = key[1]
+  result_string = q.correct_answer? ? 'Riktig' : 'Feil'
+  puts "#{x} * #{y}: #{result_string}"
+end
+puts ''
+puts "Antall spørsmål: #{store.num_total}"
+puts "Antall riktige: #{store.num_correct} (#{(store.num_correct.to_f / store.num_total.to_f * 100).round(1)}%)"
+puts "Antall feil: #{store.num_incorrect} (#{(store.num_incorrect.to_f / store.num_total.to_f * 100).round(1)}%)"
+
+
 
 

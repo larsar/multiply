@@ -1,5 +1,5 @@
+require_relative('./question')
 class QuestionStore
-
 
   def initialize(x_min, x_max, y_min, y_max)
     @questions = {}
@@ -17,6 +17,14 @@ class QuestionStore
         @questions[m.xy] = m unless @questions.has_key?(m.xy)
       end
     end
+  end
+
+  def all_keys
+    @questions.keys.sort
+  end
+
+  def get(key)
+    @questions[key]
   end
 
   def next_unanswered_question
