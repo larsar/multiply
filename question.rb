@@ -32,7 +32,7 @@ class Question
     @y
   end
 
-  def hash_key
+  def xy
     [@x, @y].sort
   end
 

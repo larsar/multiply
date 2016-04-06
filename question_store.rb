@@ -14,9 +14,25 @@ class QuestionStore
     @x_min.upto(@x_max) do |x|
       @y_min.upto(@y_max) do |y|
         m = Question.new(x, y)
-        @questions[m.hash_key] = m unless @questions.has_key?(m.hash_key)
+        @questions[m.xy] = m unless @questions.has_key?(m.xy)
       end
     end
+  end
+
+  def next_unanswered_question
+    @questions.keys.sort.each do |key|
+      return key unless @questions[key].has_answer?
+    end
+    raise 'No more questions for you!'
+  end
+
+  def random_unanswered_question
+    keys = []
+    @questions.keys.each do |key|
+      keys << key unless @questions[key].has_answer?
+    end
+    raise 'No more random questions for you!' if keys.length == 0
+    keys[rand(1..keys.length)-1]
   end
 
   def set_answer(x, y, value)

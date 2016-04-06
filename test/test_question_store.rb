@@ -64,8 +64,23 @@ class TestQuestionStore < Test::Unit::TestCase
     assert_equal(2, @qs.num_incorrect )
   end
 
-  def test_pop_question
-    #@qs.
+  def test_next_question
+    assert_equal(@qs.next_unanswered_question, [1,1])
+    @qs.set_answer(1, 1, 1)
+    assert_equal(@qs.next_unanswered_question, [1,2])
+    @qs.set_answer(1, 2, 99)
+    assert_equal(@qs.next_unanswered_question, [2,2])
+    @qs.set_answer(2, 2, 88)
+    assert_raise { @qs.next_unanswered_question }
+  end
+
+  def test_random_question
+    3.times do |i|
+      q = @qs.random_unanswered_question
+      @qs.set_answer(q[0], q[1], q[0] * q[1])
+    end
+    assert_raise { @qs.random_unanswered_question }
+    assert_raise { @qs.next_unanswered_question }
   end
 
 
