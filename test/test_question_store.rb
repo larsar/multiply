@@ -1,7 +1,7 @@
 require_relative '../question_store'
 require 'test/unit'
 
-class TestMultiplicationStore < Test::Unit::TestCase
+class TestQuestionStore < Test::Unit::TestCase
 
   def setup
     @x_min = 1

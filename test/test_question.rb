@@ -1,7 +1,7 @@
 require_relative "../question"
 require "test/unit"
 
-class TestMultiplication < Test::Unit::TestCase
+class TestQuestion < Test::Unit::TestCase
 
   def setup
     @x = 2
